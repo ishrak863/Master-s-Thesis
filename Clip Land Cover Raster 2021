@@ -1,3 +1,4 @@
+// Load the Urban area boundary layer
 var urban_20_c = ee.FeatureCollection('projects/ee-mishrak/assets/Urban_Areas_2020');
 Map.addLayer(urban_20_c);
 
