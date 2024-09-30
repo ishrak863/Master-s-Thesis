@@ -1,8 +1,8 @@
 // Load the Urban area boundary layer
-var urban_20_c = ee.FeatureCollection('projects/ee-mishrak/assets/Urban_Areas_2010');
+var urban_10_c = ee.FeatureCollection('projects/ee-mishrak/assets/Urban_Areas_2010');
 Map.addLayer(urban_10_c);
 
-// Load the NLCD 2021 dataset
+// Load the NLCD 2011 dataset
 var nlcd= ee.Image('USGS/NLCD/NLCD2011').select('landcover');
 
 var nlcd_clip= nlcd.clip(urban_10_c);
@@ -18,6 +18,6 @@ Export.image.toDrive({
   scale: 30,                           // Resolution in meters
   region: nlcd,              // Use simplified geometry
   fileFormat: 'GeoTIFF',
-  folder: 'GEE_Exports',
+  folder: 'GEE_Exports_11',
   maxPixels: 1e13                      // Allow large image exports
 });
