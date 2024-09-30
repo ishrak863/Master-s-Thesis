@@ -1,1 +1,23 @@
+// Load the Urban area boundary layer
+var urban_00_c = ee.FeatureCollection('projects/ee-mishrak/assets/Urban_Areas_2000');
+Map.addLayer(urban_00_c);
 
+// Load the NLCD 2001 dataset
+var nlcd= ee.Image('USGS/NLCD/NLCD2001').select('landcover');
+
+var nlcd_clip= nlcd.clip(urban_00_c);
+Map.addLayer(nlcd_clip, {bands: ['landcover'], min: 0, max: 95, palette: [
+  '466b9f', 'd1def8', 'dec5c5', 'd99282', 'eb0000', 'ab0000', 'b3ac9f',
+  '68ab5f', '1c6330', 'b5ca8f', 'a68c30', 'ccba7d', 'e2e2c3', 'c9d29b',
+  '99c147', '77ad93', 'dbd83d', 'aa7028', 'badff4'
+]}, 'Clipped NLCD 2001');
+
+Export.image.toDrive({
+  image: nlcd_clip,
+  description: 'Clipped_NLCD_2001',
+  scale: 30,                           // Resolution in meters
+  region: nlcd,              // Use simplified geometry
+  fileFormat: 'GeoTIFF',
+  folder: 'GEE_Exports',
+  maxPixels: 1e13                      // Allow large image exports
+});
