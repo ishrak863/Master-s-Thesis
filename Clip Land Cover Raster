@@ -13,7 +13,7 @@ Map.addLayer(nlcd_clip, {bands: ['landcover'], min: 0, max: 95, palette: [
 
 Export.image.toDrive({
   image: nlcd_clip,
-  description: 'Clipped_NLCD_Simplified',
+  description: 'Clipped_NLCD_2021',
   scale: 30,                           // Resolution in meters
   region: nlcd,              // Use simplified geometry
   fileFormat: 'GeoTIFF',
