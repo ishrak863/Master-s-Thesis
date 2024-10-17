@@ -3,9 +3,9 @@ var urban_20_c = ee.FeatureCollection('projects/ee-mishrak/assets/Urban_Areas_20
 Map.addLayer(urban_20_c);
 
 // Load the NLCD 2021 dataset
-var nlcd= ee.Image('USGS/NLCD/NLCD2021').select('landcover');
+var nlcd = ee.ImageCollection('USGS/NLCD_RELEASES/2021_REL/NLCD');
 
-var nlcd_clip= nlcd.clip(urban_20_c);
+var nlcd_clip= nlcd.first().clip(urban_20_c);
 Map.addLayer(nlcd_clip, {bands: ['landcover'], min: 0, max: 95, palette: [
   '466b9f', 'd1def8', 'dec5c5', 'd99282', 'eb0000', 'ab0000', 'b3ac9f',
   '68ab5f', '1c6330', 'b5ca8f', 'a68c30', 'ccba7d', 'e2e2c3', 'c9d29b',
