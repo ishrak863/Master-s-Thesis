@@ -1,0 +1,20 @@
+// Define the USA boundary
+var usa = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017")
+             .filter(ee.Filter.eq('country_na', 'United States'));
+
+// Get WorldPop population data for 2001
+var pop2001 = ee.ImageCollection("WorldPop/GP/100m/pop")
+                   .filter(ee.Filter.date('2001-01-01', '2001-12-31'))
+                   .mosaic()
+                   .clip(usa);
+
+// Export to Google Drive
+Export.image.toDrive({
+  image: pop2001,
+  description: 'USA_WorldPop_2001',
+  folder: 'EarthEngineExports',  // Change to your desired folder name
+  scale: 100,
+  region: usa.geometry().bounds(),
+  crs: 'EPSG:4326',
+  maxPixels: 1e12
+});
